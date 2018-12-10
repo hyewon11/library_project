@@ -46,7 +46,7 @@ void user_leave(client_node *user){      //회원 탈퇴
         prev=prev->next;
       }
       free(ctmp);
-      prev->next==NULL;
+      prev->next=NULL;
     }
     else{
       while(prev->next!=user){
