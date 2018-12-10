@@ -17,36 +17,40 @@ int main(){
   }
   if(search_num==1){
     printf("도서명을 입력하세요: ");
-    scanf("%s",search_name);
-    while(tmp!=NULL){
-      if(strcmp(tmp->book_name,search_name)==0){
-        num[i]=tmp->book_num;
-        y_n[i]=tmp->yes_or_no;
-        now = tmp;
-        i++;
+    scanf("%[^\n]",search_name);
+    printf("%s\n",search_name);
+    while(1){
+    if(strcmp(tmp->book_name,search_name)==0){
+      now = tmp;
+      num[i]=tmp->book_num;
+      y_n[i]=tmp->yes_or_no;
+      i++;
+    }
+    if(tmp->next==NULL){
+      break;
+    }
+    tmp=tmp->next;
+  }
+  if(i==0){
+    printf("해당 도서는 존재 하지 않습니다.\n");
+  }
+  else{
+    printf(">> 검색 결과 <<\n");
+    printf("도서 번호 :");
+    while(1){
+      if(i==1){
+        printf("%d(삭제 가능 여부 : %c)\n",num[0],y_n[0]);
+        break;
       }
-      tmp=tmp->next;
+      printf("%d(삭제 가능 여부 : %c),",num[i-1],y_n[i-1]);
+      i--;
     }
-    if(i==0){
-      printf("도서정보가 없습니다.\n");
-    }
-    else{
-      printf(">> 검색 결과 <<\n");
-      printf("도서 번호 :");
-      while(1){
-        if(i==1){
-          printf("%d(삭제 가능 여부 : %c)\n",num[0],y_n[0]);
-          break;
-        }
-        printf("%d(삭제 가능 여부 : %c),",num[i-1],num[i-1]);
-        i--;
-      }
-      printf("도서명: %s\n",now->book_name);
-      printf("출판사: %s\n",now->book_publisher);
-      printf("저자명: %s\n",now->book_writer);
-      printf("ISBN: %lld\n",now->ISBN);
-      printf("소장처: %s\n",now->locate_place);
-    }
+    printf("\n도서명: %s\n",now->book_name);
+    printf("출판사: %s\n",now->book_publisher);
+    printf("저자명: %s\n",now->book_writer);
+    printf("ISBN: %lld\n",now->ISBN);
+    printf("소장처: %s\n",now->locate_place);
+  }
     printf("삭제할 도서의 번호를 입력하세요: ");
     scanf("%d",&delete_num);
     while(1){
@@ -55,7 +59,6 @@ int main(){
         break;
       }
     }
-
   }
   else if(search_num==2){
     printf("ISBN을 입력하세요: ");
